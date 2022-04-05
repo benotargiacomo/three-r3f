@@ -1,28 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { softShadows, OrbitControls } from '@react-three/drei';
+
+import CarModel from './components/CarModel';
 
 import GlobalStyles from './styles/GlobalStyles';
 
 softShadows();
 
-function Box() {
-  return (
-    <mesh>
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshStandardMaterial attach="material" color="red" />
-    </mesh>
-  );
-}
-
 function App() {
   return (
     <>
-      <Canvas>
+      <Canvas camera={{ position: [10, 2, 10], fov: 60 }}>
         <OrbitControls />
         <ambientLight intensity={0.2} />
         <spotLight position={[20, 15, 20]} angle={0.2} />
-        <Box />
+        <Suspense>
+          <CarModel />
+        </Suspense>
       </Canvas>
       <GlobalStyles />
     </>
