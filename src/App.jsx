@@ -12,7 +12,11 @@ softShadows();
 function App() {
   return (
     <>
-      <Canvas shadows camera={{ position: [3, 1.5, 4], fov: 45 }}>
+      <Canvas
+        shadows
+        camera={{ position: [3, 1.5, 4], fov: 45 }}
+        className="canvas"
+      >
         <ambientLight intensity={0.3} />
         <directionalLight
           castShadow
