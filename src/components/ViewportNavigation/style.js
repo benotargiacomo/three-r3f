@@ -17,17 +17,17 @@ export const Button = styled.button`
 `;
 
 export const AutoRotate = styled(Button)`
-  background: ${(props) => (props.autoRotate ? '#e6e6e6' : '#ff3300')};
+  background: ${({ autoRotate }) => (autoRotate ? '#e6e6e6' : '#ff3300')};
 `;
 
 export const Perspective = styled(Button)`
-  
+  background: ${({ currentView }) => (currentView === 'PERSPECTIVE' ? 'blue' : '#e6e6e6')};
 `;
 
 export const Front = styled(Button)`
-  
+  background: ${({ currentView }) => (currentView === 'FRONT' ? 'blue' : '#e6e6e6')};
 `;
 
 export const Side = styled(Button)`
-  
+  background: ${({ currentView }) => (currentView === 'SIDE' ? 'blue' : '#e6e6e6')};
 `;

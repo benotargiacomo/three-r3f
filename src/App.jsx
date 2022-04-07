@@ -18,11 +18,17 @@ softShadows();
 function App() {
   const [autoRotate, setAutoRotate] = useState(true);
   const [cam, setCam] = useState([3, 1.5, 4]);
-  // const [currentView, setCurrentView] = useState('PERSPECTIVE');
+  const [currentView, setCurrentView] = useState('PERSPECTIVE');
 
   return (
     <>
-      <ViewportNavigation autoRotate={autoRotate} setCam={setCam} setAutoRotate={setAutoRotate} />
+      <ViewportNavigation
+        autoRotate={autoRotate}
+        currentView={currentView}
+        setCurrentView={setCurrentView}
+        setCam={setCam}
+        setAutoRotate={setAutoRotate}
+      />
       <Canvas shadows dpr={[1, 2]} className="canvas">
         <PerspectiveCamera makeDefault position={cam} fov={45} />
         <color attach="background" args={['#181818']} />
