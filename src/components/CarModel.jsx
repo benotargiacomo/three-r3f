@@ -10,7 +10,12 @@ export default function Model() {
   const { nodes } = useGLTF('/carModel.glb');
 
   return (
-    <group ref={group} dispose={null}>
+    <group
+      ref={group}
+      dispose={null}
+      // onPointerOver={(e) => e.object.material.color.set('red')}
+      // onPointerOut={(e) => e.object.material.color.set('white')}
+    >
       <mesh
         geometry={nodes.farolTraseiro.geometry}
         material={nodes.farolTraseiro.material}

@@ -1,13 +1,13 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
   softShadows,
-  // PresentationControls,
   OrbitControls,
-  // Environment,
-  // ContactShadows,
+  PerspectiveCamera,
+  Environment,
 } from '@react-three/drei';
 
+import ViewportNavigation from './components/ViewportNavigation';
 import CarModel from './components/CarModel';
 import Floor from './components/Floor';
 
@@ -16,14 +16,15 @@ import GlobalStyles from './styles/GlobalStyles';
 softShadows();
 
 function App() {
+  const [autoRotate, setAutoRotate] = useState(true);
+  const [cam, setCam] = useState([3, 1.5, 4]);
+  // const [currentView, setCurrentView] = useState('PERSPECTIVE');
+
   return (
     <>
-      <Canvas
-        shadows
-        dpr={[1, 2]}
-        camera={{ position: [3, 1.5, 4], fov: 45 }}
-        className="canvas"
-      >
+      <ViewportNavigation autoRotate={autoRotate} setCam={setCam} setAutoRotate={setAutoRotate} />
+      <Canvas shadows dpr={[1, 2]} className="canvas">
+        <PerspectiveCamera makeDefault position={cam} fov={45} />
         <color attach="background" args={['#181818']} />
         <fog attach="fog" args={['#181818', 10, 20]} />
         {/* <ambientLight intensity={0.3} /> */}
@@ -40,30 +41,20 @@ function App() {
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        {/* <PresentationControls polar={[0, 0]} config={{ mass: 1.3, tension: 500 }}> */}
         <Suspense>
           <group scale={0.8}>
             <CarModel />
             <Floor />
           </group>
         </Suspense>
-        {/* </PresentationControls> */}
-        {/* <ContactShadows
-          resolution={2048}
-          frames={1}
-          position={[0, -1.16, 0]}
-          scale={10}
-          blur={0.75}
-          opacity={1}
-          far={10}
-        /> */}
-        {/* <Environment preset="warehouse" /> */}
+        <Environment preset="city" />
         <OrbitControls
           rotateSpeed={0.2}
-          autoRotate
+          autoRotate={autoRotate}
           autoRotateSpeed={0.2}
           enablePan={false}
-          enableZoom={false}
+          minDistance={3.5}
+          maxDistance={4.7}
           minPolarAngle={Math.PI / 2.4}
           maxPolarAngle={Math.PI / 2.4}
         />
